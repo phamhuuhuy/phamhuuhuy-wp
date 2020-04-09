@@ -1,41 +1,317 @@
 <!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
     <title>Assignment 2</title>
-    
-    <!-- Keep wireframe.css for debugging, add your css to style.css -->
-    <link id='wireframecss' type="text/css" rel="stylesheet" href="../wireframe.css" disabled> 
-    <link id='stylecss' type="text/css" rel="stylesheet" href="../style.css">
+    <link id='wireframecss' type="text/css" rel="stylesheet" href="../wireframe.css" disabled>
+    <link id='stylecss' type="text/css" rel="stylesheet" href="style.css">
 
     <script src='../wireframe.js'></script>
-  </head>
+</head>
 
-  <body>
-
+<body class="bg-dark">
     <header>
-      <div>Put company logo and name here</div>
+        <div class="jumbotron">
+            <div class="row" style="margin-left: 100px;">
+                <div class="col-xl-6" style="margin-bottom: 10px;">
+                    <img src="logo.png" alt="logo cinemax">
+                    <h2>The Cinemax</h2>
+                </div>
+                <div class="col-xl-6" style="margin-top: 50px;">
+                    <div class="search">
+                        <div class="input-append">
+                            <input placeholder="Searching...">
+                            <button type="button">
+                                <i class='fas fa-search' style='font-size:20px'></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </header>
 
-    <nav>
-      <div>Put website navigation links here</div>
+    <nav id="nav" class="navbar navbar-expand-md navbar-light bg-light sticky-top justify-content-center">
+        <ul class="navbar-nav">
+            <li class="nav-item" style="margin-right: 50px;">
+                <a href="#about_us" class="nav-link">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a href="#prices" class="nav-link">Prices</a>
+            </li>
+
+            <li class="nav-item" style="margin-left: 50px;">
+                <a href="#now_showing" class="nav-link">Now Showing</a>
+            </li>
+        </ul>
     </nav>
 
     <main>
-      <article id='Website Under Construction'>
-    <!-- Creative Commons image sourced from https://pixabay.com/en/maintenance-under-construction-2422173/ and used for educational purposes only -->
-        <img src='../../media/website-under-construction.png' alt='Website Under Construction' />
-      </article>
+        <article>
+            <div class="parallax"></div>
+            <div class='sub_parallax' id="about_us">
+                <h4>About Us</h4>
+                <img class="sticky1-top" src="dolby.png" alt="Avatar" style="margin-left: 50px;" >
+                <img class="sticky1-top" src="dolby3.jpg" alt="Avatar">
+                <img class="sticky1-top" src="dolby2.jpg" alt="Avatar">
+                <img class="sticky1-top" src="dolby4.png" alt="Avatar">
+                <h5 style="margin-top: 10px ">Our strategic partners</h5>
+                <a href="https://www.dolby.com/us/en/cinema">https://www.dolby.com/us/en/cinema</a>
+                <br />
+                <a href="https://www.profurn.com.au/shop/cinema">https://www.profurn.com.au/shop/cinema</a>
+                <p><b>Our market expansion goal</b></p>
+                <p>The Cinemax is the world’s leading in cinebox and movie theatre. Our goal is to become the most
+                    well-known movie company so that we could contribute to Viet Nam’s film industry. But due to the
+                    rapid growth not only in young people but also adult’s need to watch movies. The cinema has reopened
+                    after extensive improvements and renovations. The Cinemax created a unique concept in changing your
+                    traditional and boring cinemas into joyful and fun experiences, where viewers come to enjoy movies
+                    through advanced film technologies like SCREEN X, IMAX, 4Dx and our new upgraded projection and
+                    sound systems with 3D Dolby Vision projection and Dolby Atmos sound. With Dolby Vision HDR, we bring
+                    you extraordinary color contrast, and brightness to the screen, transforming your viewing
+                    experiences to a whole new level. And with legendary engineering, now applied to the visual
+                    experience, giving you a whole new standard for image quality. Dolby Atmos sound is what the future
+                    sounds like, the sound moves around you in a three-dimensional space, so you feel like you’re in the
+                    action, it also adds an overhead dimension created a full audio atmosphere and realistically
+                    depicting objects moving overhead. Atmos produces breathtaking sound quality that will excite your
+                    senses and inspires your emotions to deliver a full movie experience. In Cinemax, your comfort is
+                    our priority, so we collab with Profurn, Australia and New Zealand’s preferred public seating
+                    company. With over 15 years of industry experience, we guaranteed to give the comfort of our
+                    audience throughout the movie.</p>
+            </div>
+        </article>
+
+        <article>
+            <div class="parallax1"></div>
+            <div class="sub_parallax" id="prices">
+                <h4>Prices</h4>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Seat Type</th>
+                            <th>Seat Code</th>
+                            <th>All day Monday and Wednesday AND 12pm on Weekdays</th>
+                            <th>All other times</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Standard Adult</td>
+                            <td>STA</td>
+                            <td>14.00</td>
+                            <td>19.80</td>
+                        </tr>
+                        <tr>
+                            <td>Standard Concession</td>
+                            <td>STP</td>
+                            <td>12.50</td>
+                            <td>17.50</td>
+                        </tr>
+                        <tr>
+                            <td>Standard Child</td>
+                            <td>STC</td>
+                            <td>11.00</td>
+                            <td>15.30</td>
+                        </tr>
+                        <tr>
+                            <td>First Class Adult</td>
+                            <td>FCA</td>
+                            <td>24.00</td>
+                            <td>30.00</td>
+                        </tr>
+                        <tr>
+                            <td>First Class Concession</td>
+                            <td>FCP</td>
+                            <td>22.50</td>
+                            <td>27.00</td>
+                        </tr>
+                        <tr>
+                            <td>First Class Child</td>
+                            <td>FCC</td>
+                            <td>21.00</td>
+                            <td>24.00</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </article>
+
+        <article>
+            <div class="parallax2"></div>
+            <div class='sub_parallax' id="now_showing">
+                <h4>Now Showing</h4>
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col"
+                            style="margin-left: 200px; border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
+                            <div class="card border">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <img src="Endgame.jpeg" alt="" width="190px" height="300px">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> End Game &nbsp&nbsp&nbsp&nbsp PG-13</h5>
+                                            <p class="card-text" style="margin-top: 50px; margin-left: 30px;">
+                                                Wednesday-9pm</p>
+                                            <p class="card-text" style="margin-left: 30px;">Friday-9pm</p>
+                                            <p class="card-text" style="margin-left: 30px;">Saturday-6pm</p>
+                                            <p class="card-text" style="margin-left: 30px;">Sunday-6pm</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col"
+                            style="margin-left: 20px; border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
+                            <div class="card border">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img src="top_end_wedding.jpg" alt="" width="180px" height="300px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">&nbsp Top End Wedding &nbsp NR</h5>
+                                            <p class="card-text" style="margin-top: 50px; margin-left: 70px;">Monday-6pm
+                                            </p>
+                                            <p class="card-text" style="margin-left: 70px;">Tuesday-6pm</p>
+                                            <p class="card-text" style="margin-left: 70px;">Saturday-3pm</p>
+                                            <p class="card-text" style="margin-left: 70px;">Sunday-3pm</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col"
+                            style="margin-left: 200px; border: solid red 2px; padding: 5px 5px 5px 5px; background-color:red;">
+                            <div class="card border">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <img src="dumbo.jpg" alt="" width="190px" height="300px">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> Dumbo &nbsp&nbsp&nbsp&nbsp PG</h5>
+                                            <p class="card-text" style="margin-top: 10px; margin-left: 30px;">
+                                                Monday-12pm</p>
+                                            <p class="card-text" style="margin-left: 30px;">Tuesday-12pm</p>
+                                            <p class="card-text" style="margin-left: 30px;">Wednesday-6pm</p>
+                                            <p class="card-text" style="margin-left: 30px;">Friday-6pm</p>
+                                            <p class="card-text" style="margin-left: 30px;">Saturday-12pm</p>
+                                            <p class="card-text" style="margin-left: 30px;">Sunday-12pm</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col"
+                            style="margin-left: 20px; border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
+                            <div class="card border">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img src="the_happy_prince.jfif" alt="" width="180px" height="300px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">&nbsp The Happy Prince &nbsp R</h5>
+                                            <p class="card-text" style="margin-top: 50px; margin-left: 70px;">
+                                                Wednesday-12pm</p>
+                                            <p class="card-text" style="margin-left: 70px;">Friday-12pm</p>
+                                            <p class="card-text" style="margin-left: 70px;">Saturday-9pm</p>
+                                            <p class="card-text" style="margin-left: 70px;">Sunday-9pm</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 style="margin-top: 100px;">Synopsis</h4>
+                <div class="row" style="margin-left: 50px; margin-top: 50px; border:solid 2px ;">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h1 class="card-title">Dumbo <span style="margin-left: 350px;">PG</span></h1>
+                            <h3 style="margin-top: 50px;">Plot description</h3>
+                            <p>From Disney and visionary director Tim Burton, “Dumbo” expands on the beloved classic
+                                story where differences are celebrated, family is cherished and dreams take flight. A
+                                new trailer, images and poster are now available. The trailer features Colin Farrell,
+                                Michael Keaton, Danny DeVito, Eva Green, Finley Hobbins and Nico Parker.
+
+                                Circus owner Max Medici (Danny DeVito) enlists former star Holt Farrier (Colin Farrell)
+                                and his children Milly (Nico Parker) and Joe (Finley Hobbins) to care for a newborn
+                                elephant whose oversized ears make him a laughingstock in an already struggling circus.
+                                But when they discover that Dumbo can fly, the circus makes an incredible comeback,
+                                attracting persuasive entrepreneur V.A. Vandevere (Michael Keaton), who recruits the
+                                peculiar pachyderm for his newest, larger-than-life entertainment venture, Dreamland.
+                                Dumbo soars to new heights alongside a charming and spectacular aerial artist, Colette
+                                Marchant (Eva Green), until Holt learns that beneath its shiny veneer, Dreamland is full
+                                of dark secrets.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="padding: 20px 20px 0px 0px;">
+                        <iframe width="650" height="450" src="https://www.youtube.com/embed/7NiYVoqBt-8" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="col" style="margin-bottom: 50px; margin-left: 20px;">
+                        <h3>Make a booking:
+                            <a href="" class="btn btn-info" role="button" style="margin-left: 70px;">Monday-12pm</a>
+                            <a href="" class="btn btn-info" role="button">Tuesday-12pm</a>
+                            <a href="" class="btn btn-info" role="button">Wednesday-6pm</a>
+                            <a href="" class="btn btn-info" role="button">Friday-6pm</a>
+                            <a href="" class="btn btn-info" role="button">Saturday-9pm</a>
+                            <a href="" class="btn btn-info" role="button">Sunday-9pm</a>
+                        </h3>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+
+
     </main>
 
     <footer>
-      <div>&copy;<script>
-        document.write(new Date().getFullYear());
-      </script> Put your name(s), student number(s) and group name here. Last modified <?= date ("Y F d  H:i", filemtime($_SERVER['SCRIPT_FILENAME'])); ?>.</div>
-      <div>Disclaimer: This website is not a real website and is being developed as part of a School of Science Web Programming course at RMIT University in Melbourne, Australia.</div>
-      <div><button id='toggleWireframeCSS' onclick='toggleWireframe()'>Toggle Wireframe CSS</button></div>
+        <div class="jumbotron" style="margin-bottom: 50px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Contact</h3>
+                        <p>Email: Thecinemaxcompany.co</p>
+                        <p class="text-danger">Hotline: 1900-6035</p>
+                        <p>
+                            <Address>Ho Chi Minh City</Address>
+                        </p>
+                    </div>
+                </div>
+                <div>Disclaimer: This website is not a real website and is being developed as part of a School of
+                    Science
+                    Web
+                    Programming course at RMIT University in Melbourne, Australia.</div>
+                <div><button id='toggleWireframeCSS' onclick='toggleWireframe()'>Toggle Wireframe CSS</button></div>
+            </div>
+        </div>
     </footer>
 
-  </body>
+
+
+</body>
+
 </html>
