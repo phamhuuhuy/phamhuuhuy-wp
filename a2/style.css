@@ -1,6 +1,14 @@
 /* Insert your styles here */
+html{
+    scroll-behavior: smooth;
+}
 header div img{
     width: 200px;
+}
+
+input[pattern]:invalid {
+    border: 2px red solid;
+    background-color: #fee;
 }
 
 .jumbotron {
@@ -11,6 +19,8 @@ header div img{
 .sticky1-top{
     padding-bottom: 10px;
 }
+
+
 
 main h4 {
     text-align: center;
@@ -51,12 +61,19 @@ main h4 {
     text-align:​ center;
 }
 
+.booking-form {
+    background-color: white; 
+    color: #777; 
+    padding: 50px 80px; 
+    text-align:​ center;
+}
+
 h3 a {
     margin-left: 20px;
 }
 
 #nav{
-    background-color: grey;
+    background-color: rgba(222, 222, 222, 0.25);
 }
 
 
@@ -65,7 +82,7 @@ h3 a {
 }
 
 #nav a:hover {
-    color: #636363;
+    color:red;
 }
 
 #nav strong, #nav b {
@@ -129,7 +146,7 @@ h3 a {
             }
 
             #nav ul li a.active {
-                background-color: #ffffff;
+                background-color: rgba(222, 222, 222, 0.25);
                 box-shadow: none;
             }
         
