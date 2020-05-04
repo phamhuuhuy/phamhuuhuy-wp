@@ -18,12 +18,13 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Assignment 2</title>
+    <title>Assignment 3</title>
     <link id='wireframecss' type="text/css" rel="stylesheet" href="../wireframe.css" disabled>
     <link id='stylecss' type="text/css" rel="stylesheet" href="style.css">
 
     <script src='../wireframe.js'></script>
     <script src="../a3/script.js"></script>
+
 </head>
 
 <body class="bg-dark" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -67,7 +68,7 @@
                         <a href="#now_showing" class="nav-link" id="now_showing_nav">Now Showing</a>
                     </li>
 
-                    <li class="nav-item" id="li_dumbo" style="margin-left: 5px; padding-right: 50px; display: none;">
+                    <li class="nav-item" id="li_dumbo" style="margin-left: 5px; padding-right: 50px;">
                         <a href="#Synopsis1" class="nav-link" id="now_showing_nav">Dumbo</a>
                     </li>
 
@@ -85,7 +86,7 @@
                         <a href="#Synopsis4" class="nav-link" id="now_showing_nav">The Happy Price</a>
                     </li>
 
-                    <li class="nav-item" id="li_booking" style="margin-left: 5px; padding-right: 50px; display: none;">
+                    <li class="nav-item" id="li_booking" style="margin-left: 5px; padding-right: 50px;">
                         <a href="#booking_form" class="nav-link" id="now_showing_nav">Booking Form</a>
                     </li>
                 </ul>
@@ -200,7 +201,7 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div class="card-body">
-                                            <a href="#endgame" onclick="Appear('_endgame');MovieId('ACT')">
+                                            <a href="#endgame" onclick="Appear_endgame();MovieId('ACT')">
                                                 <h5 class="card-title"> End Game &nbsp&nbsp&nbsp&nbsp PG-13</h5>
                                             </a>
 
@@ -224,7 +225,7 @@
                                     </div>
                                     <div class="col-xl-8">
                                         <div class="card-body">
-                                            <a href="#topendwedding" onclick="Appear('_topendwedding');MovieId('RMC')">
+                                            <a href="#topendwedding" onclick="Appear_topendwedding();MovieId('RMC')">
                                                 <h5 class="card-title">&nbsp Top End Wedding &nbsp NR</h5>
                                             </a>
 
@@ -251,7 +252,7 @@
                                     </div>
                                     <div class="col-xl-7">
                                         <div class="card-body">
-                                            <a href="#dumbo" onclick="Appear('_dumbo');MovieId('ANM')">
+                                            <a href="#dumbo" onclick="Appear_dumbo();MovieId('ANM')">
                                                 <h5 class="card-title"> Dumbo &nbsp&nbsp&nbsp&nbsp PG</h5>
                                             </a>
 
@@ -277,8 +278,7 @@
                                     </div>
                                     <div class="col-xl-8">
                                         <div class="card-body">
-                                            <a href="#thehappyprince"
-                                                onclick="Appear('_thehappyprince');MovieId('AHF')">
+                                            <a href="#thehappyprince" onclick="Appear_thehappyprince();MovieId('AHF')">
                                                 <h5 class="card-title">&nbsp The Happy Prince &nbsp R</h5>
                                             </a>
 
@@ -301,7 +301,7 @@
         </article>
 
         <!--Synopsis Dumbo-->
-        <article id="synopsisRMC_dumbo" style="display: none;">
+        <article id="synopsisRMC_dumbo">
             <div class="parallax"></div>
             <div class='sub_parallax' id="Synopsis1">
 
@@ -345,29 +345,33 @@
                         </br>
                         <div>
                             <a type="button" class="btn btn-info for-booking" id="dumbo1" href="#booking_form"
-                                onclick="Show_booking_form();Dumbo_inner('1');MovieId2(0);MovieId3(0)">Monday - 12pm</a>
+                                onclick="Dumbo_inner('1');MovieId2(0);MovieId3(0); caculate_total_price()">Monday -
+                                12pm</a>
                             <a type="button" class="btn btn-info for-booking;" id="dumbo2" href="#booking_form"
-                                onclick="Show_booking_form();Dumbo_inner('2');MovieId2(1);MovieId3(0)">Tuesday -
+                                onclick="Dumbo_inner('2');MovieId2(1);MovieId3(0); caculate_total_price()">Tuesday -
                                 12pm</a>
                             <a type="button" class="btn btn-info for-booking" id="dumbo3" href="#booking_form"
-                                onclick="Show_booking_form();Dumbo_inner('3');MovieId2(2);MovieId3(2)">Wednesday -
+                                onclick="Dumbo_inner('3');MovieId2(2);MovieId3(2); caculate_total_price()">Wednesday -
                                 6pm</a>
                             <a type="button" class="btn btn-info for-booking" id="dumbo7" href="#booking_form"
-                                onclick="Show_booking_form();Dumbo_inner('7');MovieId2(3);MovieId3(2)">Thursday - 6pm</a>
+                                onclick="Dumbo_inner('7');MovieId2(3);MovieId3(2); caculate_total_price()">Thursday -
+                                6pm</a>
                             <a type="button" class="btn btn-info for-booking" id="dumbo4" href="#booking_form"
-                                onclick="Show_booking_form();Dumbo_inner('4');MovieId2(4);MovieId3(2)">Friday - 6pm</a>
+                                onclick="Dumbo_inner('4');MovieId2(4);MovieId3(2); caculate_total_price()">Friday -
+                                6pm</a>
                             <a type="button" class="btn btn-info for-booking" id="dumbo5" href="#booking_form"
-                                onclick="Show_booking_form();Dumbo_inner('5');MovieId2(5);MovieId3(3)">Saturday -
+                                onclick="Dumbo_inner('5');MovieId2(5);MovieId3(3); caculate_total_price()">Saturday -
                                 9pm</a>
                             <a type="button" class="btn btn-info for-booking" id="dumbo6" href="#booking_form"
-                                onclick="Show_booking_form();Dumbo_inner('6');MovieId2(6);MovieId3(3)">Sunday - 9pm</a>
+                                onclick="Dumbo_inner('6');MovieId2(6);MovieId3(3); caculate_total_price()">Sunday -
+                                9pm</a>
                         </div>
                     </div>
                     </br>
                     <div class="col-xl-12" style="padding-right: 0px;">
-                        <a href="#now_showing" onclick="Hide('_dumbo')" style="margin-top: 150px;">
-                            <button type="button" class="btn btn-danger"
-                                style="font-size: 150%; float: right;">Close</button>
+                        <a href="#now_showing" style="margin-top: 150px;">
+                            <button type="button" class="btn btn-danger" style="font-size: 150%; float: right;">Choose
+                                Other Movies</button>
                         </a>
                     </div>
 
@@ -408,32 +412,35 @@
                         <h3>Make a booking:</h3>
                         </br>
                         <div>
-                            <a role="button" href="#booking_form" onclick="Show_booking_form()"
-                                class="btn btn-info disabled">Day - Hour</a>
-                            <a role="button" href="#booking_form" onclick="Show_booking_form()"
-                                class="btn btn-info disabled">Day - Hour</a>
+                            <a role="button" href="#booking_form" class="btn btn-info disabled">Day - Hour</a>
+                            <a role="button" href="#booking_form" class="btn btn-info disabled">Day - Hour</a>
                             <a role="button" href="#booking_form" id="endgame1"
-                                onclick="Show_booking_form();Endgame_inner('1');MovieId2(2);MovieId3(3)"
-                                class="btn btn-info">Wednesday - 9pm</a>
-                            <a role="button" href="#booking_form" id="endgame5" 
-                                onclick="Show_booking_form();Endgame_inner('5');MovieId2(3);MovieId3(3)"
-                                class="btn btn-info">Thursday - 9pm</a>
+                                onclick="Endgame_inner('1');MovieId2(2);MovieId3(3); caculate_total_price()"
+                                class="btn btn-info">Wednesday -
+                                9pm</a>
+                            <a role="button" href="#booking_form" id="endgame5"
+                                onclick="Endgame_inner('5');MovieId2(3);MovieId3(3); caculate_total_price()"
+                                class="btn btn-info">Thursday -
+                                9pm</a>
                             <a role="button" href="#booking_form" id="endgame2"
-                                onclick="Show_booking_form();Endgame_inner('2');MovieId2(4);MovieId3(3)"
-                                class="btn btn-info">Friday - 9pm</a>
+                                onclick="Endgame_inner('2');MovieId2(4);MovieId3(3); caculate_total_price()"
+                                class="btn btn-info">Friday -
+                                9pm</a>
                             <a role="button" href="#booking_form" id="endgame3"
-                                onclick="Show_booking_form();Endgame_inner('3');MovieId2(5);MovieId3(2)"
-                                class="btn btn-info">Saturday - 6pm</a>
+                                onclick="Endgame_inner('3');MovieId2(5);MovieId3(2); caculate_total_price()"
+                                class="btn btn-info">Saturday -
+                                6pm</a>
                             <a role="button" href="#booking_form" id="endgame4"
-                                onclick="Show_booking_form();Endgame_inner('4');MovieId2(6);MovieId3(2)"
-                                class="btn btn-info">Sunday - 6pm</a>
+                                onclick="Endgame_inner('4');MovieId2(6);MovieId3(2); caculate_total_price()"
+                                class="btn btn-info">Sunday -
+                                6pm</a>
                         </div>
                     </div>
                     </br>
                     <div class="col-xl-12" style="padding-right: 0px;">
-                        <a href="#now_showing" onclick="Hide('_endgame')" style="margin-top: 150px;">
-                            <button type="button" class="btn btn-danger"
-                                style="font-size: 150%; float: right;">Close</button>
+                        <a href="#now_showing" style="margin-top: 150px;">
+                            <button type="button" class="btn btn-danger" style="font-size: 150%; float: right;">Choose
+                                Other Movies</button>
                         </a>
                     </div>
 
@@ -473,30 +480,27 @@
                         </br>
                         <div>
                             <a role="button" href="#booking_form" id="top1"
-                                onclick="Show_booking_form();Top_inner('1');MovieId2(0);MovieId3(2)"
+                                onclick="Top_inner('1');MovieId2(0);MovieId3(2); caculate_total_price()"
                                 class="btn btn-info">Monday - 6pm</a>
                             <a role="button" href="#booking_form" id="top2"
-                                onclick="Show_booking_form();Top_inner('2');MovieId2(1);MovieId3(2)"
+                                onclick="Top_inner('2');MovieId2(1);MovieId3(2); caculate_total_price()"
                                 class="btn btn-info">Tuesday - 6pm</a>
-                            <a role="button" href="#booking_form" onclick="Show_booking_form()"
-                                class="btn btn-info disabled">Day - Hour</a>
-                            <a role="button" href="#booking_form" onclick="Show_booking_form()"
-                                class="btn btn-info disabled">Day - Hour</a>
-                            <a role="button" href="#booking_form" onclick="Show_booking_form()"
-                                class="btn btn-info disabled">Day - Hour</a>
+                            <a role="button" href="#booking_form" class="btn btn-info disabled">Day - Hour</a>
+                            <a role="button" href="#booking_form" class="btn btn-info disabled">Day - Hour</a>
+                            <a role="button" href="#booking_form" class="btn btn-info disabled">Day - Hour</a>
                             <a role="button" href="#booking_form" id="top3"
-                                onclick="Show_booking_form();Top_inner('3');MovieId2(5);MovieId3(2)"
+                                onclick="Top_inner('3');MovieId2(5);MovieId3(2); caculate_total_price()"
                                 class="btn btn-info">Saturday - 6pm</a>
                             <a role="button" href="#booking_form" id="top4"
-                                onclick="Show_booking_form();Top_inner('4');MovieId2(6);MovieId3(2)"
+                                onclick="Top_inner('4');MovieId2(6);MovieId3(2); caculate_total_price()"
                                 class="btn btn-info">Sunday - 6pm</a>
                         </div>
                     </div>
                     </br>
                     <div class="col-xl-12" style="padding-right: 0px;">
-                        <a href="#now_showing" onclick="Hide('_topendwedding')" style="margin-top: 150px;">
-                            <button type="button" class="btn btn-danger"
-                                style="font-size: 150%; float: right;">Close</button>
+                        <a href="#now_showing" style="margin-top: 150px;">
+                            <button type="button" class="btn btn-danger" style="font-size: 150%; float: right;">Choose
+                                Other Movies</button>
                         </a>
                     </div>
 
@@ -541,32 +545,34 @@
                         <h3>Make a booking:</h3>
                         </br>
                         <div>
-                            <a role="button" href="#booking_form" onclick="Show_booking_form()"
-                                class="btn btn-info disabled">Day - Hour</a>
-                            <a role="button" href="#booking_form" onclick="Show_booking_form()"
-                                class="btn btn-info disabled">Day - Hour</a>
+                            <a role="button" href="#booking_form" class="btn btn-info disabled">Day - Hour</a>
+                            <a role="button" href="#booking_form" class="btn btn-info disabled">Day - Hour</a>
                             <a role="button" href="#booking_form" id="prince1"
-                                onclick="Show_booking_form();Prince_inner('1');MovieId2(2);MovieId3(0)"
-                                class="btn btn-info">Wednesday - 12pm</a>
+                                onclick="Prince_inner('1');MovieId2(2);MovieId3(0); caculate_total_price()"
+                                class="btn btn-info">Wednesday -
+                                12pm</a>
                             <a role="button" href="#booking_form" id="prince5"
-                                onclick="Show_booking_form();Prince_inner('5');MovieId2(3);MovieId3(0)"
+                                onclick="Prince_inner('5');MovieId2(3);MovieId3(0); caculate_total_price()"
                                 class="btn btn-info disabled">Thursday - 12pm</a>
                             <a role="button" href="#booking_form" id="prince2"
-                                onclick="Show_booking_form();Prince_inner('2');MovieId2(4);MovieId3(0)"
-                                class="btn btn-info">Friday - 12pm</a>
+                                onclick="Prince_inner('2');MovieId2(4);MovieId3(0); caculate_total_price()"
+                                class="btn btn-info">Friday -
+                                12pm</a>
                             <a role="button" href="#booking_form" id="prince3"
-                                onclick="Show_booking_form();Prince_inner('3');MovieId2(5);MovieId3(3)"
-                                class="btn btn-info">Saturday - 9pm</a>
+                                onclick="Prince_inner('3');MovieId2(5);MovieId3(3); caculate_total_price()"
+                                class="btn btn-info">Saturday -
+                                9pm</a>
                             <a role="button" href="#booking_form" id="prince4"
-                                onclick="Show_booking_form();Prince_inner('4');MovieId2(6);;MovieId3(3);"
-                                class="btn btn-info">Sunday - 9pm</a>
+                                onclick="Prince_inner('4');MovieId2(6);;MovieId3(3); caculate_total_price()"
+                                class="btn btn-info">Sunday -
+                                9pm</a>
                         </div>
                     </div>
                     </br>
                     <div class="col-xl-12" style="padding-right: 0px;">
-                        <a href="#now_showing" onclick="Hide('_thehappyprince')" style="margin-top: 150px;">
-                            <button type="button" class="btn btn-danger"
-                                style="font-size: 150%; float: right;">Close</button>
+                        <a href="#now_showing" style="margin-top: 150px;">
+                            <button type="button" class="btn btn-danger" style="font-size: 150%; float: right;">Choose
+                                Other Movies</button>
                         </a>
                     </div>
 
@@ -577,7 +583,7 @@
             </div>
         </article>
 
-        <article class="bg-light" style="display: none;" id="booking_form">
+        <article class="bg-light" id="booking_form">
 
             <div class='booking-form' style="margin-top: 50px;">
                 <form action="https://titan.csit.rmit.edu.au/~e54061/wp/lunardo-formtest.php" method="POST">
@@ -599,11 +605,10 @@
                                 <fieldset class="card container" style="border: red solid;">
                                     <legend class="w-auto" style="font-weight: bolder;">Standard</legend>
                                     <div>
-                                        <input type="text" id="adult_statotal" value="0" style="display: none;">
+                                        
                                         <label class="col-5" for=""
                                             style="margin-top: 40px; font-weight: 500; font-size: 18px;">Adult</label>
-                                        <select name="Standard" id="adult_sta"
-                                            onblur="Payment('adult_sta'); total_price()"
+                                        <select name="seats[STA]" id="adult_sta" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
@@ -622,11 +627,10 @@
 
                                     </div>
                                     <div>
-                                        <input type="text" id="concession_statotal" value="0" style="display: none;">
-                                        <label class="col-5" for=""
+                                        
+                                        <label class="col-5" for="concession_sta"
                                             style="margin-top: 20px; font-weight: 500; font-size: 18px;">Concession</label>
-                                        <select name="Standard" id="concession_sta"
-                                            onblur="Payment('concession_sta'); total_price()"
+                                        <select name="seats[STP]" id="concession_sta" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
@@ -644,11 +648,10 @@
 
                                     </div>
                                     <div style="margin-bottom: 40px;">
-                                        <input type="text" id="child_statotal" value="0" style="display: none;">
-                                        <label class="col-5" for=""
+                                        
+                                        <label class="col-5" for="child_sta"
                                             style="margin-top: 20px; font-weight: 500; font-size: 18px;">Children</label>
-                                        <select name="Standard" id="child_sta"
-                                            onblur="Payment('child_sta'); total_price() "
+                                        <select name="seats[STC]" id="child_sta" onblur="caculate_total_price() "
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
@@ -670,11 +673,10 @@
                                 <fieldset class="card container" style="border: red solid; margin-bottom: 20px;">
                                     <legend class="w-auto" style="font-weight: bolder;">First Class</legend>
                                     <div>
-                                        <input type="text" id="adult_fctotal" value="0" style="display: none;">
+                                        
                                         <label class="col-5" for=""
                                             style="margin-top: 40px; font-weight: 500; font-size: 18px;">Adult</label>
-                                        <select name="Standard" id="adult_fc"
-                                            onblur="Payment('adult_fc'); total_price()"
+                                        <select name="seats[FCA]" id="adult_fc" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
@@ -692,11 +694,10 @@
 
                                     </div>
                                     <div>
-                                        <input type="text" id="concession_fctotal" value="0" style="display: none;">
+                                        
                                         <label class="col-5" for=""
                                             style="margin-top: 20px; font-weight: 500; font-size: 18px;">Concession</label>
-                                        <select name="Standard" id="concession_fc"
-                                            onblur="Payment('concession_fc'); total_price()"
+                                        <select name="seats[FCP]" id="concession_fc" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
@@ -714,11 +715,10 @@
 
                                     </div>
                                     <div style="margin-bottom: 40px;">
-                                        <input type="text" id="child_fctotal" value="0" style="display: none;">
+                                        
                                         <label class="col-5" for=""
                                             style="margin-top: 20px; font-weight: 500; font-size: 18px;">Children</label>
-                                        <select name="Standard" id="child_fc"
-                                            onblur="Payment('child_fc'); total_price()"
+                                        <select name="seats[FCC]" id="child_fc" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
@@ -741,22 +741,22 @@
                                 <div class="form-group">
                                     <div class="form-group row" style="padding-top: 20px">
                                         <div class="col-xl-7" style="display: none;">
-                                            <input type="text" class="form-control" id="movie[id]" placeholder="Hidden1"
+                                            <input type="text" name="movie[id]" class="form-control" id="hidden1" placeholder="Hidden1"
                                                 required>
                                             <!--HIDDEN2-->
                                             <div>
                                                 <label class="col-5" for=""
                                                     style="margin-top: 40px; font-weight: 500; font-size: 18px;">HIDDEN
                                                     DAY</label>
-                                                <select name="Standard" id="hidden2"
+                                                <select name="movie[day]" id="hidden2"
                                                     class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
-                                                    <option value="">MON</option>
-                                                    <option value="">TUE</option>
-                                                    <option value="">WED</option>
-                                                    <option value="">THU</option>
-                                                    <option value="">FRI</option>
-                                                    <option value="">SAT</option>
-                                                    <option value="">SUN</option>
+                                                    <option value="MON">MON</option>
+                                                    <option value="TUE">TUE</option>
+                                                    <option value="WED">WED</option>
+                                                    <option value="THU">THU</option>
+                                                    <option value="FRI">FRI</option>
+                                                    <option value="SAT">SAT</option>
+                                                    <option value="SUN">SUN</option>
                                                 </select>
                                             </div>
                                             <!--HIDDEN3-->
@@ -764,53 +764,53 @@
                                                 <label class="col-5" for=""
                                                     style="margin-top: 40px; font-weight: 500; font-size: 18px;">HIDDEN
                                                     TIME</label>
-                                                <select name="Standard" id="hidden3"
+                                                <select name="movie[hour]" id="hidden3"
                                                     class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
-                                                    <option value="">T12</option>
-                                                    <option value="">T15</option>
-                                                    <option value="">T18</option>
-                                                    <option value="">T21</option>
+                                                    <option value="T12">T12</option>
+                                                    <option value="T15">T15</option>
+                                                    <option value="T18">T18</option>
+                                                    <option value="T21">T21</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <label for="Name" class="col-xl-5 col-form-label"
+                                        <label for="input_name" class="col-xl-5 col-form-label"
                                             style="font-weight: 500; font-size: 20px;" id="name">Name</label>
                                         <div class="col-xl-7">
-                                            <input type="text" class="form-control" id="input_name" placeholder="Name"
-                                                pattern="^[a-zA-Z \-.']{1,100}$" required>
+                                            <input type="text" class="form-control" id="input_name" name="cust[name]"
+                                                placeholder="Name" pattern="^[a-zA-Z-.' ]{1,100}$" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="Email" class="col-xl-5 col-form-label"
+                                        <label for="input_email" class="col-xl-5 col-form-label"
                                             style="font-weight: 500; font-size: 20px;" id="email">Email</label>
                                         <div class="col-xl-7">
-                                            <input type="email" class="form-control" id="input_email"
+                                            <input type="email" class="form-control" id="input_email" name="cust[email]"
                                                 placeholder="Email"
                                                 pattern="^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="Mobile" class="col-xl-5 col-form-label"
+                                        <label for="input_mobile" class="col-xl-5 col-form-label"
                                             style="font-weight: 500; font-size: 20px;" id="mobile">Mobile</label>
                                         <div class="col-xl-7">
-                                            <input type="text" class="form-control" id="input_mobile"
+                                            <input type="text" class="form-control" id="input_mobile" name="cust[mobile]"
                                                 placeholder="Mobile" pattern="^(\(04\)|04|\+614)( ?\d){8}$" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="CreditCard" class="col-xl-5 col-form-label"
+                                        <label for="input_card" class="col-xl-5 col-form-label"
                                             style="font-weight: 500; font-size: 20px;" id="credit_card">Credit
                                             Card</label>
                                         <div class="col-xl-7">
-                                            <input type="text" class="form-control" id="input_card"
+                                            <input type="text" class="form-control" id="input_card" name="cust[card]"
                                                 placeholder="Credit Card" pattern="^( ?\d){14,19}$" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="Date" class="col-xl-5 col-form-label"
+                                        <label for="input_date" class="col-xl-5 col-form-label"
                                             style="font-weight: 500; font-size: 20px;">Expiry</label>
                                         <div class="col-xl-7">
-                                            <input type="Month" class="form-control" id="input_date" name="birthday"
+                                            <input type="Month" class="form-control" id="input_date" name="cust[expiry]"
                                                 onfocus="time_min()" required>
                                         </div>
                                     </div>

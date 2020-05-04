@@ -1,0 +1,1 @@
+<h3>$_GET contains: </h3>
