@@ -553,7 +553,7 @@
                                 12pm</a>
                             <a role="button" href="#booking_form" id="prince5"
                                 onclick="Prince_inner('5');MovieId2(3);MovieId3(0); caculate_total_price()"
-                                class="btn btn-info disabled">Thursday - 12pm</a>
+                                class="btn btn-info">Thursday - 12pm</a>
                             <a role="button" href="#booking_form" id="prince2"
                                 onclick="Prince_inner('2');MovieId2(4);MovieId3(0); caculate_total_price()"
                                 class="btn btn-info">Friday -
@@ -608,7 +608,7 @@
                                     <legend class="w-auto" style="font-weight: bolder;">Standard</legend>
                                     <div>
 
-                                        <label class="col-5" for=""
+                                        <label class="col-5" for="adult_sta"
                                             style="margin-top: 40px; font-weight: 500; font-size: 18px;">Adult</label>
                                         <select name="seats[STA]" id="adult_sta" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
@@ -676,7 +676,7 @@
                                     <legend class="w-auto" style="font-weight: bolder;">First Class</legend>
                                     <div>
 
-                                        <label class="col-5" for=""
+                                        <label class="col-5" for="adult_fc"
                                             style="margin-top: 40px; font-weight: 500; font-size: 18px;">Adult</label>
                                         <select name="seats[FCA]" id="adult_fc" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
@@ -697,7 +697,7 @@
                                     </div>
                                     <div>
 
-                                        <label class="col-5" for=""
+                                        <label class="col-5" for="concession_fc"
                                             style="margin-top: 20px; font-weight: 500; font-size: 18px;">Concession</label>
                                         <select name="seats[FCP]" id="concession_fc" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
@@ -718,7 +718,7 @@
                                     </div>
                                     <div style="margin-bottom: 40px;">
 
-                                        <label class="col-5" for=""
+                                        <label class="col-5" for="child_fc"
                                             style="margin-top: 20px; font-weight: 500; font-size: 18px;">Children</label>
                                         <select name="seats[FCC]" id="child_fc" onblur="caculate_total_price()"
                                             class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
@@ -814,7 +814,7 @@
                                             style="font-weight: 500; font-size: 20px;">Expiry</label>
                                         <div class="col-xl-7">
                                             <input type="Month" class="form-control" id="input_date" name="cust[expiry]"
-                                                onfocus="time_min()" required>
+                                                min="2020-05" required>
                                         </div>
                                     </div>
                                 </div>

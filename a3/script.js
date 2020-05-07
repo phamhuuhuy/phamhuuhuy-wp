@@ -173,16 +173,3 @@ function caculate_total_price() {
 
 }
 
-function time_min() {
-
-    var currentdate = new Date();
-    var month = (currentdate.getMonth() + 1);
-    if (month < 10) {
-        month = "0" + month.toString()
-    }
-    else {
-        month = month.toString()
-    }
-    var year = (currentdate.getFullYear()).toString();
-    document.getElementById("input_date").min = year + "-" + month
-}
