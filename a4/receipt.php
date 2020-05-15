@@ -43,9 +43,27 @@
 
 <body>
   <?php 
-    function hi(){
-      header('location : ticket.php');
-    }
+    session_start();
+      $myfile = fopen("bookings.txt","a");
+      date_default_timezone_set('Asia/Ho_Chi_Minh');
+      $now = date('d/m h:i');
+    
+      $cells = array_merge(
+          [$now],
+          (array) $_SESSION["cust"]['name'],
+          (array) $_SESSION["cust"]['email'],
+          (array) $_SESSION["cust"]['mobile'],
+          (array) $_SESSION["movie"],
+          (array) $_SESSION["seats"],
+          (array) $_SESSION["total"]['hidden'],
+      );
+        //$mycsv = fopen('booking.csv', 'a');
+        flock($myfile, LOCK_SH);
+        //fputcsv($mycsv, $cells);
+        fputcsv($myfile, $cells);
+        flock($myfile, LOCK_UN);
+        //fclose($mycsv);
+        fclose($myfile);
   ?>
   
   <page size="A4">
