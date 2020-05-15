@@ -24,6 +24,7 @@
 
     <script src='../wireframe.js'></script>
     <script src="../a3/script.js"></script>
+    <?php include 'tools.php'?>
 
 </head>
 
@@ -588,7 +589,7 @@
         <article class="bg-light" id="booking_form">
 
             <div class='booking-form' style="margin-top: 50px;">
-                <form action="https://titan.csit.rmit.edu.au/~e54061/wp/lunardo-formtest.php" method="POST">
+                <form action="index.php" method="POST">
                     <h4 class="text-center" style="margin-top: 50px;">Booking Form</h4>
                     <div class="container card"
                         style="border: black solid; background-color:  rgba(222, 222, 222, 0.25);">
@@ -779,7 +780,8 @@
                                             style="font-weight: 500; font-size: 20px;" id="name">Name</label>
                                         <div class="col-xl-7">
                                             <input type="text" class="form-control" id="input_name" name="cust[name]"
-                                                placeholder="Name" pattern="^[a-zA-Z-.' ]{1,100}$" required>
+                                                placeholder="Name">
+                                            
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -936,6 +938,11 @@
 
         </footer>
         <!-- Footer -->
+        <?php
+            preShow($_POST);     // ie echo a string
+            preShow($_SESSION);
+            printMyCode();
+       ?> 
 </body>
 
 </html>

@@ -170,6 +170,7 @@ function caculate_total_price() {
     var FCChildren = document.getElementById("child_fc").value
     var total = Number(STDAdult) * priceSTA + Number(STDConcess) * priceSTP + Number(STDChildren) * priceSTC + Number(FCAdult) * priceFCA + Number(FCConcess) * priceFCP + Number(FCChildren) * priceFCC
     document.getElementById("total").innerHTML = "$" + total.toFixed(2).toString()
+    document.getElementById("total-hidden").value = total.toFixed(2).toString()
 
 }
 

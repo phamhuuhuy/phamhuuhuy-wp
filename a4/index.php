@@ -4,26 +4,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Assignment 3</title>
     <link id='wireframecss' type="text/css" rel="stylesheet" href="../wireframe.css" disabled>
     <link id='stylecss' type="text/css" rel="stylesheet" href="style.css">
-
+    <style>
+        .error {color: #FF0000;}
+    </style>
     <script src='../wireframe.js'></script>
     <script src="../a3/script.js"></script>
+    <?php
+    session_start();
+    include 'tools.php';
+    $errorFound = 0;
+    function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialChars($data);
+        return $data;
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (empty($_POST['cust']['name'])) {
+            $errorFound++;
+            $nameErr = "Name is required";
+        } else {
+            $name = test_input($_POST['cust']['name']);
+            if (!preg_match("/^[a-zA-Z-.' ]{1,100}$/", $name)) {
+                $errorFound++;
+                $nameErr = "Only Western name allowed. Ex: John, Edison, ...";
+            }
+        }
+
+        if (empty($_POST['cust']['email'])) {
+            $errorFound++;
+            $emailErr = "Email is required";
+        } else {
+            $email = test_input($_POST['cust']['email']);
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errorFound++;
+                $emailErr = "Invalid email format. Ex: abc@gmail.com";
+            }
+        }
+        if (empty($_POST['cust']['mobile'])) {
+            $errorFound++;
+            $mobileErr = "Mobile is required";
+        } else {
+            $mobile = test_input($_POST['cust']['mobile']);
+            if (!preg_match("/^(\(04\)|04|\+614)( ?\d){8}$/", $mobile)) {
+                $errorFound++;
+                $mobileErr = "Please add 04 or +614 in the header. ";
+            }
+        }
+        if (empty($_POST['cust']['card'])) {
+            $errorFound++;
+            $cardErr = "Credit card is required";
+        } else {
+            $card = test_input($_POST['cust']['card']);
+            if (!preg_match("/^( ?\d){14,19}$/", $card)) {
+                $errorFound++;
+                $cardErr = "Invalid Credit card";
+            }
+        }
+        if (empty($_POST["cust"]["expiry"])) {
+            $expiryErr = "Expiry is required";
+            $errorFound++;
+        } else {
+            $array = (explode('-', $_POST["cust"]["expiry"]));
+            $year = date("Y");
+            $month = date("m") + 1;
+            if ($array[0] < $year) {
+                $expiryErr = "Expiry date cannot be within a month of the purchase date";
+                $errorFound++;
+            } elseif ($array[0] == $year) {
+                if ($array[1] < $month) {
+                    $expiryErr = "Expiry date cannot be within a month of the purchase date";
+                    $errorFound++;
+                }
+            }
+        }
+        if($_POST['seats']['STA'] == 0 & $_POST['seats']['STP'] == 0 & $_POST['seats']['STC'] == 0 & $_POST['seats']['FCA'] == 0 & $_POST['seats']['FCP'] == 0 & $_POST['seats']['FCC'] == 0){
+            $errorFound++;
+            $seatsErr = "Please choose the seat before clicking order. Please choose film, day and time again";
+        }
+        if ($errorFound == 0) {
+            foreach ($_POST as $key => $value) {
+                foreach ($value as $key1 => $value1) {
+                    $_SESSION[$key][$key1] = $_POST[$key][$key1];
+                }
+            }
+            $_SESSION['total-hidden'] = $_POST['total']['hidden'];
+            header("Location: receipt.php");
+        };
+
+
+
+        // fix it.
+    }
+    ?>
 
 </head>
 
@@ -76,13 +160,11 @@
                         <a href="#Synopsis2" class="nav-link" id="now_showing_nav">Avengers:End Game</a>
                     </li>
 
-                    <li class="nav-item" id="li_topendwedding"
-                        style="margin-left: 5px; padding-right: 50px; display: none;">
+                    <li class="nav-item" id="li_topendwedding" style="margin-left: 5px; padding-right: 50px; display: none;">
                         <a href="#Synopsis3" class="nav-link" id="now_showing_nav">Top End Wedding</a>
                     </li>
 
-                    <li class="nav-item" id="li_thehappyprince"
-                        style="margin-left: 5px; padding-right: 50px; display: none;">
+                    <li class="nav-item" id="li_thehappyprince" style="margin-left: 5px; padding-right: 50px; display: none;">
                         <a href="#Synopsis4" class="nav-link" id="now_showing_nav">The Happy Price</a>
                     </li>
 
@@ -98,7 +180,7 @@
         <article>
             <div class="parallax"></div>
             <div class='sub_parallax' id="about_us">
-                <h4 style="margin-top: 50px;">About Us</h4>
+                <h4>About Us</h4>
                 <img class="sticky1-top" src="dolby.png" alt="Avatar" style="margin-left: 30px;">
                 <img class="sticky1-top" src="dolby3.jpg" alt="Avatar" style="margin-left: 30px;">
                 <img class="sticky1-top" src="dolby2.jpg" alt="Avatar" style="margin-left: 30px;">
@@ -108,7 +190,7 @@
                 <br />
                 <a href="https://www.profurn.com.au/shop/cinema">https://www.profurn.com.au/shop/cinema</a>
                 <p><b>Our market expansion goal</b></p>
-                <p style="font-family: arial, sans-serif;">The Cinemax is the world’s leading in cinebox and movie theatre.
+                <p>The Cinemax is the world’s leading in cinebox and movie theatre.
                     Our
                     goal is to become the most
                     well-known movie company so that we could contribute to Viet Nam’s film industry. But due to the
@@ -133,7 +215,7 @@
         <article>
             <div class="parallax2"></div>
             <div class="sub_parallax" id="prices">
-                <h4 style="margin-top: 50px;">Prices</h4>
+                <h4>Prices</h4>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
@@ -189,11 +271,10 @@
         <article>
             <div class="parallax2"></div>
             <div class='sub_parallax' id="now_showing">
-                <h4 style="margin-top: 50px;">Now Showing</h4>
+                <h4>Now Showing</h4>
                 <div class="container mt-5">
                     <div class="row">
-                        <div class="col"
-                            style=" border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
+                        <div class="col" style=" border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
                             <div class="card border">
                                 <div class="row">
                                     <div class="col-md-5">
@@ -216,8 +297,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col"
-                            style="margin-left: 20px; border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
+                        <div class="col" style="margin-left: 20px; border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
                             <div class="card border">
                                 <div class="row">
                                     <div class="col-xl-4">
@@ -243,8 +323,7 @@
                 </div>
                 <div class="container mt-3">
                     <div class="row">
-                        <div class="col"
-                            style=" border: solid red 2px; padding: 5px 5px 5px 5px; background-color:red;">
+                        <div class="col" style=" border: solid red 2px; padding: 5px 5px 5px 5px; background-color:red;">
                             <div class="card border">
                                 <div class="row">
                                     <div class="col-xl-5">
@@ -269,8 +348,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col"
-                            style="margin-left: 20px; border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
+                        <div class="col" style="margin-left: 20px; border: solid red 2px; padding: 5px 5px 5px 5px; background-color: red;">
                             <div class="card border">
                                 <div class="row">
                                     <div class="col-xl-4">
@@ -335,43 +413,32 @@
                         </div>
                     </div>
                     <div class="col-xl-5" style="padding: 30px 20px 0px 0px; margin-left: 20px;">
-                        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/7NiYVoqBt-8"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/7NiYVoqBt-8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="col" style="margin-bottom: 50px; margin-left: 20px; position: relative;">
                         <h3>Make a booking:</h3>
                         </br>
                         <div>
-                            <a type="button" class="btn btn-info for-booking" id="dumbo1" href="#booking_form"
-                                onclick="Dumbo_inner('1');MovieId2(0);MovieId3(0); caculate_total_price()">Monday -
+                            <a type="button" class="btn btn-info for-booking" id="dumbo1" href="#booking_form" onclick="Dumbo_inner('1');MovieId2(0);MovieId3(0); caculate_total_price()">Monday -
                                 12pm</a>
-                            <a type="button" class="btn btn-info for-booking;" id="dumbo2" href="#booking_form"
-                                onclick="Dumbo_inner('2');MovieId2(1);MovieId3(0); caculate_total_price()">Tuesday -
+                            <a type="button" class="btn btn-info for-booking;" id="dumbo2" href="#booking_form" onclick="Dumbo_inner('2');MovieId2(1);MovieId3(0); caculate_total_price()">Tuesday -
                                 12pm</a>
-                            <a type="button" class="btn btn-info for-booking" id="dumbo3" href="#booking_form"
-                                onclick="Dumbo_inner('3');MovieId2(2);MovieId3(2); caculate_total_price()">Wednesday -
+                            <a type="button" class="btn btn-info for-booking" id="dumbo3" href="#booking_form" onclick="Dumbo_inner('3');MovieId2(2);MovieId3(2); caculate_total_price()">Wednesday -
                                 6pm</a>
-                            <a type="button" class="btn btn-info for-booking" id="dumbo7" href="#booking_form"
-                                onclick="Dumbo_inner('7');MovieId2(3);MovieId3(2); caculate_total_price()">Thursday -
+                            <a type="button" class="btn btn-info for-booking" id="dumbo7" href="#booking_form" onclick="Dumbo_inner('7');MovieId2(3);MovieId3(2); caculate_total_price()">Thursday -
                                 6pm</a>
-                            <a type="button" class="btn btn-info for-booking" id="dumbo4" href="#booking_form"
-                                onclick="Dumbo_inner('4');MovieId2(4);MovieId3(2); caculate_total_price()">Friday -
+                            <a type="button" class="btn btn-info for-booking" id="dumbo4" href="#booking_form" onclick="Dumbo_inner('4');MovieId2(4);MovieId3(2); caculate_total_price()">Friday -
                                 6pm</a>
-                            <a type="button" class="btn btn-info for-booking" id="dumbo5" href="#booking_form"
-                                onclick="Dumbo_inner('5');MovieId2(5);MovieId3(3); caculate_total_price()">Saturday -
+                            <a type="button" class="btn btn-info for-booking" id="dumbo5" href="#booking_form" onclick="Dumbo_inner('5');MovieId2(5);MovieId3(3); caculate_total_price()">Saturday -
                                 9pm</a>
-                            <a type="button" class="btn btn-info for-booking" id="dumbo6" href="#booking_form"
-                                onclick="Dumbo_inner('6');MovieId2(6);MovieId3(3); caculate_total_price()">Sunday -
+                            <a type="button" class="btn btn-info for-booking" id="dumbo6" href="#booking_form" onclick="Dumbo_inner('6');MovieId2(6);MovieId3(3); caculate_total_price()">Sunday -
                                 9pm</a>
                         </div>
                     </div>
                     </br>
                     <div class="col-xl-12" style="padding-right: 0px;">
                         <a href="#now_showing" style="margin-top: 150px;">
-                            <button type="button" class="btn btn-danger"
-                                style="font-size: 150%; float: right; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+                            <button type="button" class="btn btn-danger" style="font-size: 150%; float: right; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
                                 Choose Other Movies</button>
                         </a>
                     </div>
@@ -404,43 +471,29 @@
                         </div>
                     </div>
                     <div class="col-xl-5" style="padding: 30px 20px 0px 0px; margin-left: 20px;">
-                        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/TcMBFSGVi1c"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/TcMBFSGVi1c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="col" style="margin-bottom: 50px; margin-left: 20px; position: relative;">
                         <h3>Make a booking:</h3>
                         </br>
                         <div>
 
-                            <a role="button" href="#booking_form" id="endgame1"
-                                onclick="Endgame_inner('1');MovieId2(2);MovieId3(3); caculate_total_price()"
-                                class="btn btn-info">Wednesday -
+                            <a role="button" href="#booking_form" id="endgame1" onclick="Endgame_inner('1');MovieId2(2);MovieId3(3); caculate_total_price()" class="btn btn-info">Wednesday -
                                 9pm</a>
-                            <a role="button" href="#booking_form" id="endgame5"
-                                onclick="Endgame_inner('5');MovieId2(3);MovieId3(3); caculate_total_price()"
-                                class="btn btn-info">Thursday -
+                            <a role="button" href="#booking_form" id="endgame5" onclick="Endgame_inner('5');MovieId2(3);MovieId3(3); caculate_total_price()" class="btn btn-info">Thursday -
                                 9pm</a>
-                            <a role="button" href="#booking_form" id="endgame2"
-                                onclick="Endgame_inner('2');MovieId2(4);MovieId3(3); caculate_total_price()"
-                                class="btn btn-info">Friday -
+                            <a role="button" href="#booking_form" id="endgame2" onclick="Endgame_inner('2');MovieId2(4);MovieId3(3); caculate_total_price()" class="btn btn-info">Friday -
                                 9pm</a>
-                            <a role="button" href="#booking_form" id="endgame3"
-                                onclick="Endgame_inner('3');MovieId2(5);MovieId3(2); caculate_total_price()"
-                                class="btn btn-info">Saturday -
+                            <a role="button" href="#booking_form" id="endgame3" onclick="Endgame_inner('3');MovieId2(5);MovieId3(2); caculate_total_price()" class="btn btn-info">Saturday -
                                 6pm</a>
-                            <a role="button" href="#booking_form" id="endgame4"
-                                onclick="Endgame_inner('4');MovieId2(6);MovieId3(2); caculate_total_price()"
-                                class="btn btn-info">Sunday -
+                            <a role="button" href="#booking_form" id="endgame4" onclick="Endgame_inner('4');MovieId2(6);MovieId3(2); caculate_total_price()" class="btn btn-info">Sunday -
                                 6pm</a>
                         </div>
                     </div>
                     </br>
                     <div class="col-xl-12" style="padding-right: 0px;">
                         <a href="#now_showing" style="margin-top: 150px;">
-                            <button type="button" class="btn btn-danger"
-                                style="font-size: 150%; float: right; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+                            <button type="button" class="btn btn-danger" style="font-size: 150%; float: right; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
                                 Choose Other Movies</button>
                         </a>
                         </a>
@@ -472,35 +525,23 @@
                         </div>
                     </div>
                     <div class="col-xl-5" style="padding: 30px 20px 0px 0px; margin-left: 20px;">
-                        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/uoDBvGF9pPU"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/uoDBvGF9pPU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="col" style="margin-bottom: 50px; margin-left: 20px; position: relative;">
                         <h3>Make a booking:</h3>
                         </br>
                         <div>
-                            <a role="button" href="#booking_form" id="top1"
-                                onclick="Top_inner('1');MovieId2(0);MovieId3(2); caculate_total_price()"
-                                class="btn btn-info">Monday - 6pm</a>
-                            <a role="button" href="#booking_form" id="top2"
-                                onclick="Top_inner('2');MovieId2(1);MovieId3(2); caculate_total_price()"
-                                class="btn btn-info">Tuesday - 6pm</a>
+                            <a role="button" href="#booking_form" id="top1" onclick="Top_inner('1');MovieId2(0);MovieId3(2); caculate_total_price()" class="btn btn-info">Monday - 6pm</a>
+                            <a role="button" href="#booking_form" id="top2" onclick="Top_inner('2');MovieId2(1);MovieId3(2); caculate_total_price()" class="btn btn-info">Tuesday - 6pm</a>
 
-                            <a role="button" href="#booking_form" id="top3"
-                                onclick="Top_inner('3');MovieId2(5);MovieId3(2); caculate_total_price()"
-                                class="btn btn-info">Saturday - 6pm</a>
-                            <a role="button" href="#booking_form" id="top4"
-                                onclick="Top_inner('4');MovieId2(6);MovieId3(2); caculate_total_price()"
-                                class="btn btn-info">Sunday - 6pm</a>
+                            <a role="button" href="#booking_form" id="top3" onclick="Top_inner('3');MovieId2(5);MovieId3(2); caculate_total_price()" class="btn btn-info">Saturday - 6pm</a>
+                            <a role="button" href="#booking_form" id="top4" onclick="Top_inner('4');MovieId2(6);MovieId3(2); caculate_total_price()" class="btn btn-info">Sunday - 6pm</a>
                         </div>
                     </div>
                     </br>
                     <div class="col-xl-12" style="padding-right: 0px;">
                         <a href="#now_showing" style="margin-top: 150px;">
-                            <button type="button" class="btn btn-danger"
-                                style="font-size: 150%; float: right; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+                            <button type="button" class="btn btn-danger" style="font-size: 150%; float: right; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
                                 Choose Other Movies</button>
                         </a>
                         </a>
@@ -538,41 +579,27 @@
                         </div>
                     </div>
                     <div class="col-xl-5" style="padding: 30px 20px 0px 0px; margin-left: 20px;">
-                        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/4HmN9r1Fcr8"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/4HmN9r1Fcr8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="col" style="margin-bottom: 50px; margin-left: 20px; position: relative;">
                         <h3>Make a booking:</h3>
                         </br>
                         <div>
-                            <a role="button" href="#booking_form" id="prince1"
-                                onclick="Prince_inner('1');MovieId2(2);MovieId3(0); caculate_total_price()"
-                                class="btn btn-info">Wednesday -
+                            <a role="button" href="#booking_form" id="prince1" onclick="Prince_inner('1');MovieId2(2);MovieId3(0); caculate_total_price()" class="btn btn-info">Wednesday -
                                 12pm</a>
-                            <a role="button" href="#booking_form" id="prince5"
-                                onclick="Prince_inner('5');MovieId2(3);MovieId3(0); caculate_total_price()"
-                                class="btn btn-info">Thursday - 12pm</a>
-                            <a role="button" href="#booking_form" id="prince2"
-                                onclick="Prince_inner('2');MovieId2(4);MovieId3(0); caculate_total_price()"
-                                class="btn btn-info">Friday -
+                            <a role="button" href="#booking_form" id="prince5" onclick="Prince_inner('5');MovieId2(3);MovieId3(0); caculate_total_price()" class="btn btn-info">Thursday - 12pm</a>
+                            <a role="button" href="#booking_form" id="prince2" onclick="Prince_inner('2');MovieId2(4);MovieId3(0); caculate_total_price()" class="btn btn-info">Friday -
                                 12pm</a>
-                            <a role="button" href="#booking_form" id="prince3"
-                                onclick="Prince_inner('3');MovieId2(5);MovieId3(3); caculate_total_price()"
-                                class="btn btn-info">Saturday -
+                            <a role="button" href="#booking_form" id="prince3" onclick="Prince_inner('3');MovieId2(5);MovieId3(3); caculate_total_price()" class="btn btn-info">Saturday -
                                 9pm</a>
-                            <a role="button" href="#booking_form" id="prince4"
-                                onclick="Prince_inner('4');MovieId2(6);;MovieId3(3); caculate_total_price()"
-                                class="btn btn-info">Sunday -
+                            <a role="button" href="#booking_form" id="prince4" onclick="Prince_inner('4');MovieId2(6);;MovieId3(3); caculate_total_price()" class="btn btn-info">Sunday -
                                 9pm</a>
                         </div>
                     </div>
                     </br>
                     <div class="col-xl-12" style="padding-right: 0px;">
                         <a href="#now_showing" style="margin-top: 150px;">
-                            <button type="button" class="btn btn-danger"
-                                style="font-size: 150%; float: right; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+                            <button type="button" class="btn btn-danger" style="font-size: 150%; float: right; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
                                 Choose Other Movies</button>
                         </a>
                         </a>
@@ -586,12 +613,10 @@
         </article>
 
         <article class="bg-light" id="booking_form">
-
             <div class='booking-form' style="margin-top: 50px;">
-                <form action="https://titan.csit.rmit.edu.au/~e54061/wp/lunardo-formtest.php" method="POST">
-                    <h4 class="text-center" style="margin-top: 50px;">Booking Form</h4>
-                    <div class="container card"
-                        style="border: black solid; background-color:  rgba(222, 222, 222, 0.25);">
+                <form action="index.php" method="POST">
+                    <h4 class="text-center">Booking Form</h4>
+                    <div class="container card" style="border: black solid; background-color:  rgba(222, 222, 222, 0.25);">
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card-body">
@@ -608,10 +633,8 @@
                                     <legend class="w-auto" style="font-weight: bolder;">Standard</legend>
                                     <div>
 
-                                        <label class="col-5" for="adult_sta"
-                                            style="margin-top: 40px; font-weight: 500; font-size: 18px;">Adult</label>
-                                        <select name="seats[STA]" id="adult_sta" onblur="caculate_total_price()"
-                                            class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
+                                        <label class="col-5" for="" style="margin-top: 40px; font-weight: 500; font-size: 18px;">Adult</label>
+                                        <select name="seats[STA]" id="adult_sta" onblur="caculate_total_price()" class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
                                             <option value="1">1</option>
@@ -630,10 +653,8 @@
                                     </div>
                                     <div>
 
-                                        <label class="col-5" for="concession_sta"
-                                            style="margin-top: 20px; font-weight: 500; font-size: 18px;">Concession</label>
-                                        <select name="seats[STP]" id="concession_sta" onblur="caculate_total_price()"
-                                            class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
+                                        <label class="col-5" for="concession_sta" style="margin-top: 20px; font-weight: 500; font-size: 18px;">Concession</label>
+                                        <select name="seats[STP]" id="concession_sta" onblur="caculate_total_price()" class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
                                             <option value="1">1</option>
@@ -651,10 +672,8 @@
                                     </div>
                                     <div style="margin-bottom: 40px;">
 
-                                        <label class="col-5" for="child_sta"
-                                            style="margin-top: 20px; font-weight: 500; font-size: 18px;">Children</label>
-                                        <select name="seats[STC]" id="child_sta" onblur="caculate_total_price() "
-                                            class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
+                                        <label class="col-5" for="child_sta" style="margin-top: 20px; font-weight: 500; font-size: 18px;">Children</label>
+                                        <select name="seats[STC]" id="child_sta" onblur="caculate_total_price() " class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
                                             <option value="1">1</option>
@@ -676,10 +695,8 @@
                                     <legend class="w-auto" style="font-weight: bolder;">First Class</legend>
                                     <div>
 
-                                        <label class="col-5" for="adult_fc"
-                                            style="margin-top: 40px; font-weight: 500; font-size: 18px;">Adult</label>
-                                        <select name="seats[FCA]" id="adult_fc" onblur="caculate_total_price()"
-                                            class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
+                                        <label class="col-5" for="" style="margin-top: 40px; font-weight: 500; font-size: 18px;">Adult</label>
+                                        <select name="seats[FCA]" id="adult_fc" onblur="caculate_total_price()" class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
                                             <option value="1">1</option>
@@ -697,10 +714,8 @@
                                     </div>
                                     <div>
 
-                                        <label class="col-5" for="concession_fc"
-                                            style="margin-top: 20px; font-weight: 500; font-size: 18px;">Concession</label>
-                                        <select name="seats[FCP]" id="concession_fc" onblur="caculate_total_price()"
-                                            class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
+                                        <label class="col-5" for="" style="margin-top: 20px; font-weight: 500; font-size: 18px;">Concession</label>
+                                        <select name="seats[FCP]" id="concession_fc" onblur="caculate_total_price()" class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
                                             <option value="1">1</option>
@@ -718,10 +733,8 @@
                                     </div>
                                     <div style="margin-bottom: 40px;">
 
-                                        <label class="col-5" for="child_fc"
-                                            style="margin-top: 20px; font-weight: 500; font-size: 18px;">Children</label>
-                                        <select name="seats[FCC]" id="child_fc" onblur="caculate_total_price()"
-                                            class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
+                                        <label class="col-5" for="" style="margin-top: 20px; font-weight: 500; font-size: 18px;">Children</label>
+                                        <select name="seats[FCC]" id="child_fc" onblur="caculate_total_price()" class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                             <option value="0">Please Select</option>
                                             <option value="0"></option>
                                             <option value="1">1</option>
@@ -743,15 +756,12 @@
                                 <div class="form-group">
                                     <div class="form-group row" style="padding-top: 20px">
                                         <div class="col-xl-7" style="display: none;">
-                                            <input type="text" name="movie[id]" class="form-control" id="hidden1"
-                                                placeholder="Hidden1" required>
+                                            <input type="text" name="movie[id]" class="form-control" id="hidden1" placeholder="Hidden1" required>
                                             <!--HIDDEN2-->
                                             <div>
-                                                <label class="col-5" for=""
-                                                    style="margin-top: 40px; font-weight: 500; font-size: 18px;">HIDDEN
+                                                <label class="col-5" for="" style="margin-top: 40px; font-weight: 500; font-size: 18px;">HIDDEN
                                                     DAY</label>
-                                                <select name="movie[day]" id="hidden2"
-                                                    class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
+                                                <select name="movie[day]" id="hidden2" class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                                     <option value="MON">MON</option>
                                                     <option value="TUE">TUE</option>
                                                     <option value="WED">WED</option>
@@ -763,11 +773,9 @@
                                             </div>
                                             <!--HIDDEN3-->
                                             <div>
-                                                <label class="col-5" for=""
-                                                    style="margin-top: 40px; font-weight: 500; font-size: 18px;">HIDDEN
+                                                <label class="col-5" for="" style="margin-top: 40px; font-weight: 500; font-size: 18px;">HIDDEN
                                                     TIME</label>
-                                                <select name="movie[hour]" id="hidden3"
-                                                    class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
+                                                <select name="movie[hour]" id="hidden3" class="btn btn-info dropdown-toggle" style="margin-left: 30px;">
                                                     <option value="T12">T12</option>
                                                     <option value="T15">T15</option>
                                                     <option value="T18">T18</option>
@@ -775,48 +783,43 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <label for="input_name" class="col-xl-5 col-form-label"
-                                            style="font-weight: 500; font-size: 20px;" id="name">Name</label>
+                                        <label for="input_name" class="col-xl-5 col-form-label" style="font-weight: 500; font-size: 20px;" id="name">Name<span style="color:red;">*</span></label>
                                         <div class="col-xl-7">
-                                            <input type="text" class="form-control" id="input_name" name="cust[name]"
-                                                placeholder="Name" pattern="^[a-zA-Z-.' ]{1,100}$" required>
+                                            <input type="text" class="form-control" id="input_name" value="<?php echo $_POST['cust']['name'] ?>" name="cust[name]" placeholder="Name">
+                                            <span class="error"> <?php echo $nameErr; ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="input_email" class="col-xl-5 col-form-label"
-                                            style="font-weight: 500; font-size: 20px;" id="email">Email</label>
+                                        <label for="input_email" class="col-xl-5 col-form-label" style="font-weight: 500; font-size: 20px;" id="email">Email<span style="color:red;">*</span></label>
                                         <div class="col-xl-7">
-                                            <input type="email" class="form-control" id="input_email" name="cust[email]"
-                                                placeholder="Email"
-                                                pattern="^([a-zA-Z0-9-.]+)@([a-zA-Z0-9-.]+).([a-zA-Z]{2,5})$" required>
+                                            <input type="text" class="form-control" id="input_email" value="<?php echo $_POST['cust']['email'] ?>" name="cust[email]" placeholder="Email">
+                                            <span class="error"> <?php echo $emailErr; ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="input_mobile" class="col-xl-5 col-form-label"
-                                            style="font-weight: 500; font-size: 20px;" id="mobile">Mobile</label>
+                                        <label for="input_mobile" class="col-xl-5 col-form-label" style="font-weight: 500; font-size: 20px;" id="mobile">Mobile<span style="color:red;">*</span></label>
                                         <div class="col-xl-7">
-                                            <input type="text" class="form-control" id="input_mobile"
-                                                name="cust[mobile]" placeholder="Mobile"
-                                                pattern="^(\(04\)|04|\+614)( ?\d){8}$" required>
+                                            <input type="text" class="form-control" id="input_mobile" value="<?php echo $_POST['cust']['mobile'] ?>" name="cust[mobile]" placeholder="Mobile">
+                                            <span class="error"> <?php echo $mobileErr; ?></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="input_card" class="col-xl-5 col-form-label"
-                                            style="font-weight: 500; font-size: 20px;" id="credit_card">Credit
-                                            Card</label>
+                                        <label for="input_card" class="col-xl-5 col-form-label" style="font-weight: 500; font-size: 20px;" id="credit_card">Credit
+                                            Card<span style="color:red;">*</span></label>
                                         <div class="col-xl-7">
-                                            <input type="text" class="form-control" id="input_card" name="cust[card]"
-                                                placeholder="Credit Card" pattern="^( ?\d){14,19}$" required>
+                                            <input type="text" class="form-control" id="input_card" value="<?php echo $_POST['cust']['card'] ?>" name="cust[card]" placeholder="Credit Card">
+                                            <span class="error"> <?php echo $cardErr; ?></span>
                                         </div>
                                     </div>
+
                                     <div class="form-group row">
-                                        <label for="input_date" class="col-xl-5 col-form-label"
-                                            style="font-weight: 500; font-size: 20px;">Expiry</label>
+                                        <label for="input_date" class="col-xl-5 col-form-label" style="font-weight: 500; font-size: 20px;">Expiry<span style="color:red;">*</span></label>
                                         <div class="col-xl-7">
-                                            <input type="Month" class="form-control" id="input_date" name="cust[expiry]"
-                                                onfocus="limitdate()" required>
+                                            <input type="Month" class="form-control" id="input_date" name="cust[expiry]">
+                                            <span class="error"> <?php echo $expiryErr; ?></span>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -825,15 +828,17 @@
                                 <p style="font-weight: 500; font-size: 30px; margin-left: 20px; display: inline;">
                                     Total:
                                 </p>
-                                <input type="text" id="total-hidden" value="0">
+                                <!--input hidden total-->
+                                <input type="text" name="total[hidden]" id="total-hidden" value="0" style="display: none" />
 
-                                <div style="border: dashed 2px; border-radius: 10px; margin-top: 9px; margin-left: 10px; height: 32px; width: 200px; display: inline-block; text-align: center;"
-                                    id="total">
+                                <div style="border: dashed 2px; border-radius: 10px; margin-top: 9px; margin-left: 10px; height: 32px; width: 200px; display: inline-block; text-align: center;" id="total">
+
                                 </div>
                             </div>
 
                             <div class="col-xl-12" style="padding-right: 0px;">
-                                <input type="submit" class="btn btn-info" value="Order" style="float: right; ">
+                                <input type="submit" class="btn btn-info" name="submission" value="Order" style="float: right; ">
+                                <span class="error" style="float:right;">* <?php echo $seatsErr; ?></span>
                             </div>
                         </div>
 
@@ -847,8 +852,7 @@
     <footer class="font-small bg-light">
         <div class="parallax"></div>
 
-        <footer class="page-footer font-small blue pt-4"
-            style="background-color:#3c3d41; color: rgba(255,255,255,1.00)">
+        <footer class="page-footer font-small blue pt-4" style="background-color:#3c3d41; color: rgba(255,255,255,1.00)">
 
             <!-- Footer Links -->
             <div class="container-fluid text-center text-md-left">
@@ -936,6 +940,13 @@
 
         </footer>
         <!-- Footer -->
+        <?php
+        preShow($_POST);     // ie echo a string
+
+        preShow($_SESSION);
+
+        printMyCode();
+        ?>
 </body>
 
 </html>
