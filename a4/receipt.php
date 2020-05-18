@@ -57,12 +57,12 @@
           (array) $_SESSION["seats"],
           (array) $_SESSION["total"]['hidden'],
       );
-        //$mycsv = fopen('booking.csv', 'a');
+        $mycsv = fopen('booking.csv', 'a');
         flock($myfile, LOCK_SH);
-        //fputcsv($mycsv, $cells);
+        fputcsv($mycsv, $cells);
         fputcsv($myfile, $cells);
         flock($myfile, LOCK_UN);
-        //fclose($mycsv);
+        fclose($mycsv);
         fclose($myfile);
   ?>
   
